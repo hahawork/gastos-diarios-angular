@@ -1,0 +1,26 @@
+/* Estilos para el diálogo de edición de transacciones */
+
+/* Estilos generales para el contenido del diálogo */
+::ng-deep .mat-dialog-content {
+  padding: 24px;
+}
+
+/* Estilos para los campos del formulario */
+::ng-deep .mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* Estilos para los botones de acción */
+::ng-deep .mat-dialog-actions {
+  padding: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Estilos para el título del diálogo */
+::ng-deep .mat-dialog-title {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}

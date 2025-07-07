@@ -1,0 +1,118 @@
+<div class="transacciones-container">
+  <div class="filters">
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Categoría</mat-label>
+      <mat-select [(value)]="selectedCategoria">
+        <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+          {{ categoria.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Cuenta</mat-label>
+      <mat-select [(value)]="selectedCuenta">
+        <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta.id">
+          {{ cuenta.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Fecha</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Desde" [max]="endDate" [(ngModel)]="startDate">
+        <input matEndDate placeholder="Hasta" [min]="startDate" [(ngModel)]="endDate">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="nuevaTransaccion()">
+      <mat-icon>add</mat-icon>
+      Nueva Transacción
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="transacciones" class="mat-elevation-z8">
+      <!-- Columna de Fecha -->
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let element">{{element.fecha | date:'dd/MM/yyyy'}}</td>
+      </ng-container>
+
+      <!-- Columna de Tipo -->
+      <ng-container matColumnDef="tipo">
+        <th mat-header-cell *matHeaderCellDef>Tipo</th>
+        <td mat-cell *matCellDef="let element">
+          <span [ngClass]="{ 'ingreso': element.tipo === 'ingreso', 'egreso': element.tipo === 'egreso', 'transferencia': element.tipo === 'transferencia' }">
+            {{ element.tipo }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Columna de Concepto -->
+      <ng-container matColumnDef="concepto">
+        <th mat-header-cell *matHeaderCellDef>Concepto</th>
+        <td mat-cell *matCellDef="let element">{{element.concepto}}</td>
+      </ng-container>
+
+      <!-- Columna de Categoría -->
+      <ng-container matColumnDef="categoria">
+        <th mat-header-cell *matHeaderCellDef>Categoría</th>
+        <td mat-cell *matCellDef="let element">{{element.categoria.nombre}}</td>
+      </ng-container>
+
+      <!-- Columna de Cuenta -->
+      <ng-container matColumnDef="cuenta">
+        <th mat-header-cell *matHeaderCellDef>Cuenta</th>
+        <td mat-cell *matCellDef="let element">{{element.cuenta.nombre}}</td>
+      </ng-container>
+
+      <!-- Columna de Cuenta Destino -->
+      <ng-container matColumnDef="cuentaDestino">
+        <th mat-header-cell *matHeaderCellDef>Cuenta Destino</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.cuentaDestinoId">
+            {{element.cuentaDestino.nombre}}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Columna de Monto -->
+      <ng-container matColumnDef="monto">
+        <th mat-header-cell *matHeaderCellDef>Monto</th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{'text-red': element.monto < 0}">
+          {{element.monto | currency:'COP':'symbol':'1.2-2'}}
+        </td>
+      </ng-container>
+
+      <!-- Columna de Descripción -->
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+        <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+      </ng-container>
+
+      <!-- Columna de Acciones -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="editarTransaccion(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="eliminarTransaccion(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

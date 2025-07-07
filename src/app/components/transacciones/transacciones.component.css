@@ -1,0 +1,48 @@
+.transacciones-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.actions {
+  margin: 16px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table-container {
+  flex: 1;
+  overflow: auto;
+}
+
+.text-red {
+  color: #dc3545;
+}
+
+.mat-header-cell,
+.mat-cell {
+  min-width: 150px;
+}
+
+.mat-cell {
+  word-break: break-word;
+}
+
+.mat-paginator {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}

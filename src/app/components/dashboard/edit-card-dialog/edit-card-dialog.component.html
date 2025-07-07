@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>{{data.card ? 'Editar' : 'Nueva'}} Tarjeta</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-form-field appearance="outline">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="titulo">
+      <mat-error *ngIf="form.get('titulo')?.hasError('required')">
+        El título es requerido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Valor</mat-label>
+      <input matInput type="number" formControlName="valor">
+      <mat-error *ngIf="form.get('valor')?.hasError('required')">
+        El valor es requerido
+      </mat-error>
+      <mat-error *ngIf="form.get('valor')?.hasError('min')">
+        El valor debe ser mayor o igual a 0
+      </mat-error>
+    </mat-form-field>
+
+    <div class="items-container">
+      <h3>Items</h3>
+      <div class="item" *ngFor="let item of items; let i = index">
+        <mat-form-field appearance="outline" class="item-field">
+          <mat-label>Label</mat-label>
+          <input matInput [(ngModel)]="item.label">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="item-field">
+          <mat-label>Valor</mat-label>
+          <input matInput type="number" [(ngModel)]="item.value">
+        </mat-form-field>
+        <button mat-icon-button (click)="removeItem(i)" color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <button mat-raised-button (click)="addItem()" color="primary">
+        <mat-icon>add</mat-icon>
+        Agregar Item
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">
+    Guardar
+  </button>
+</mat-dialog-actions>

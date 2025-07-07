@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>Editar Transacción</h2>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Tipo</mat-label>
+      <mat-select formControlName="tipo">
+        <mat-option value="ingreso">Ingreso</mat-option>
+        <mat-option value="egreso">Egreso</mat-option>
+        <mat-option value="transferencia">Transferencia</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Monto</mat-label>
+      <input matInput formControlName="monto" type="number" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="categoriaId">
+        <mat-option value="">Seleccionar</mat-option>
+        <mat-option *ngFor="let cat of categorias" [value]="cat.id">
+          {{ cat.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cuenta</mat-label>
+      <mat-select formControlName="cuentaId">
+        <mat-option value="">Seleccionar</mat-option>
+        <mat-option *ngFor="let cta of cuentas" [value]="cta.id">
+          {{ cta.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cuenta Destino</mat-label>
+      <mat-select formControlName="cuentaDestinoId">
+        <mat-option value="">Seleccionar</mat-option>
+        <mat-option *ngFor="let cta of cuentas" [value]="cta.id">
+          {{ cta.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="fecha" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Descripción</mat-label>
+      <input matInput formControlName="descripcion" />
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button [mat-dialog-close]="form.value" cdkFocusInitial>Guardar</button>
+</div>

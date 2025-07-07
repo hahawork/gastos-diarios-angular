@@ -1,0 +1,57 @@
+# Angular
+node_modules/
+/dist/
+/.angular/
+/.angular/cache/
+/.angular/cache/*
+!.angular/cache/version
+/.angular/cache/version/
+/.angular/cache/version/*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Build
+/dist/
+/tmp/
+/out-tsc/
+
+# Configuración local
+.angular-cli.json
+.angular.json
+
+# Dependencias
+node_modules/
+package-lock.json
+yarn.lock
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor
+*.log
+*.bak
+*.tmp
+*.swp
+*.swo
+
+# Otros
+.env
+.env.local
+.env.*.local
+
+# Angular cache
+.cache/
+
+# Angular SSR
+/dist/
+/server/

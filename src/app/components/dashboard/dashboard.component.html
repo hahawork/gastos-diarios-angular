@@ -1,0 +1,56 @@
+<div class="dashboard">
+  <mat-tab-group (selectedIndexChange)="onTabChange($event)">
+    <mat-tab label="Tablero">
+      <div class="dashboard-container">
+        <div class="card-container" cdkDropList (cdkDropListDropped)="handleDrop($event)">
+          <div *ngFor="let card of cards" class="card" cdkDrag>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>{{ card.titulo }}</mat-card-title>
+                <mat-card-subtitle>{{ getCardLabel(card, 'descripcion') }}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <ng-container *ngIf="card.tipo === 'resumen'">
+                  <div class="summary-card">
+                    <div class="summary-value">
+                      <!-- {{ getCardValue(card) }} -->
+                      <span class="summary-unit">{{ getCardLabel(card, 'unidad') }}</span>
+                    </div>
+                    <div class="summary-items" *ngIf="getCardItems(card).length > 0">
+                      <div *ngFor="let item of getCardItems(card)" class="summary-item">
+                        <span class="summary-label">{{ item.label }}</span>
+                        <span class="summary-value">{{ decimalPipe.transform(item.value, '1.2-2') }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="card.tipo !== 'resumen'">
+                  <div class="card-value">
+                    <!-- {{ getCardValue(card) }} -->
+                  </div>
+                  <div class="card-items" *ngIf="getCardItems(card).length > 0">
+                    <div *ngFor="let item of getCardItems(card)" class="item">
+                      <span>{{ item.label }}</span>
+                      <span>{{ decimalPipe.transform(item.value, '1.2-2') }}</span>
+                    </div>
+                  </div>
+                </ng-container>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-icon-button (click)="editarCard(card)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="eliminarCard(card)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Configuración">
+      <!-- Contenido de configuración -->
+    </mat-tab>
+  </mat-tab-group>
+</div>

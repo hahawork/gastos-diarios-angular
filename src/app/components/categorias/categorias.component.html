@@ -1,0 +1,45 @@
+<div class="categorias-container">
+  <div class="acciones">
+    <button mat-raised-button color="primary" (click)="nuevaCategoria()">
+      <mat-icon>add</mat-icon>
+      Nueva Categoría
+    </button>
+  </div>
+
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="categorias-tree">
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+      <button mat-icon-button (click)="toggle(node)">
+        <mat-icon>
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      <mat-icon class="categoria-icon">{{node.icono}}</mat-icon>
+      <span [ngClass]="{ 'categoria-activa': node.activa, 'categoria-inactiva': !node.activa }">
+        {{node.nombre}}
+      </span>
+      <div class="acciones-nodo">
+        <button mat-icon-button (click)="editarCategoria(node)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="eliminarCategoria(node)" [disabled]="!node.activa">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node; when: isLeaf" matTreeNodePadding>
+      <mat-icon class="categoria-icon">{{node.icono}}</mat-icon>
+      <span [ngClass]="{ 'categoria-activa': node.activa, 'categoria-inactiva': !node.activa }">
+        {{node.nombre}}
+      </span>
+      <div class="acciones-nodo">
+        <button mat-icon-button (click)="editarCategoria(node)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="eliminarCategoria(node)" [disabled]="!node.activa">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-tree-node>
+  </mat-tree>
+</div>
